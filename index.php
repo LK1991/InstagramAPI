@@ -25,15 +25,19 @@ curl_setopt($curl, CURLOPT_POST, true);
 curl_setopt($curl, CURLOPT_POSTFIELDS, $access_token_settings); // setting the POSTFIELDS to the array setup that we created.
 curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1); // setting it equal to 1 because we are getting strings back.
 curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false); // but in live work-production we want to set this to true.
-}
+
 $result = curl_exec($curl);
-curl_close();
+curl_close($curl);
+
+$results = json_decode($result, true);
+echo $results['user']['username'];
+} else {
 ?>
 
 <!doctype html>
 <html>
 <head>
-	<meta	charset="utf-8">
+	<meta charset="utf-8">
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Untitled</title>
@@ -48,3 +52,6 @@ curl_close();
 	<script src="js/main.js"></script>
 </body>
 </html>
+<?php
+}
+?>
