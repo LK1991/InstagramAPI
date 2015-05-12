@@ -15,7 +15,7 @@ function connectToInstagram($url) {
 	$ch = curl_init();
 
 	curl_setopt_array($ch, array(
-		CURLOPT_URL => $url;
+		CURLOPT_URL => $url,
 		CURLOPT_RETURNTRANSFER => true,
 		CURLOPT_SSL_VERIFYPEER => false,
 		CURLOPT_SSL_VERIFYHOST => 2,
@@ -23,6 +23,15 @@ function connectToInstagram($url) {
 	$result = curl_exec($ch);
 	curl_close();
 	return $result;
+}
+
+// Function to get userID cause userName doesn't allow us to get pictures.
+function getUserID($userName) {
+	$url = 'http://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.$clientID;
+	$instagramInfo = connectionToInstagram($url);
+	$results = json_decode($instagramInfo, true);
+
+	echo $results['data']['0']['id'];
 }
 
 if (isset($_GET['code'])) {
@@ -45,7 +54,7 @@ $result = curl_exec($curl);
 curl_close($curl);
 
 $results = json_decode($result, true);
-echo $results['user']['username'];
+getUserID($results['user']['username']);
 } else {
 ?>
 
@@ -63,6 +72,7 @@ echo $results['user']['username'];
 	<!-- Creating a login or for people to go and give approval for our web app the access their instagram account
 	After getting the approval, we are now going to have the information so that we can play with it.
 	 -->
+	<!-- redirects to authorize account -->
 	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">Login</a>
 	<script src="js/main.js"></script>
 </body>
