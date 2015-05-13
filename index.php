@@ -7,7 +7,7 @@ session_start();
 // Make constants using define.
 define('clientID', 'fd04566da7d14dc2a24ad582266be648');
 define('clientSecret', '3ff93939b2c84c57a9c5545abfafc330');
-define('redirectURI', 'http://localhost:8888/appacademyapi/index.php');
+define('redirectURI', 'http://localhost/appacademyapi/index.php');
 define('ImageDirectory', 'pics/');
 
 // Function that is going to connect to Instagram 
@@ -21,17 +21,29 @@ function connectToInstagram($url) {
 		CURLOPT_SSL_VERIFYHOST => 2,
 	));
 	$result = curl_exec($ch);
-	curl_close();
+	curl_close($ch);
 	return $result;
 }
 
 // Function to get userID cause userName doesn't allow us to get pictures.
 function getUserID($userName) {
-	$url = 'http://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.$clientID;
-	$instagramInfo = connectionToInstagram($url);
-	$results = json_decode($instagramInfo, true);
+	$url = 'https://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID; // to get id
+	$instagramInfo = connectToInstagram($url); // connecting to instagram
+	$results = json_decode($instagramInfo, true); // creating a local variable to decode json information.
+ 
+	return $results['data']['0']['id']; // echoing out userID
+}
 
-	echo $results['data']['0']['id'];
+// Function to print out images onto the screen
+function printImages($userID) {
+	$url = 'https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=19';
+	$instagramInfo = connectToInstagram($url);
+	$results = json_decode($instagramInfo, true);
+	// Parse through the info one by one.
+	foreach($results['data'] as $items) {
+		$image_url = $items['images']['low_resolution']['url']; // going to go through all of my results and give myself back the URL of those pictures because we want to save it in the PHP Server.
+		echo '<img src=" '.$image_url.' "/><br/>';
+	}
 }
 
 if (isset($_GET['code'])) {
@@ -54,7 +66,12 @@ $result = curl_exec($curl);
 curl_close($curl);
 
 $results = json_decode($result, true);
-getUserID($results['user']['username']);
+
+$userName = $results['user']['username'];
+
+$userID = getUserID($userName);
+
+printImages($userID);
 } else {
 ?>
 
