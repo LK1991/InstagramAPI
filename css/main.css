@@ -1,0 +1,86 @@
+body {
+  /*text-align: center;
+*/	font-family: 'Biryani', sans-serif;
+	background-image: url("https://38.media.tumblr.com/772f593717196ce571d113b3eeebacb4/tumblr_mnjrchBip21qdje50o1_400.gif");
+	background-attachment: 100%;
+}
+
+#body {
+	background-color: white;
+}
+
+h1, u {
+	font-size: 40px;
+	font-family: 'Oleo Script', cursive;
+	color: #9900CC;
+	text-align: center;
+	text-shadow: 0 0 5px #fff, 0 0 10px #fff, 0 0 15px #fff, 0 0 20px #ff2d95, 0 0 30px #ff2d95, 0 0 40px #ff2d95, 0 0 50px #ff2d95, 0 0 75px #ff2d95;
+	letter-spacing: 5px;
+}
+
+img {
+	margin-left: 240px;
+	margin-bottom: 25px;
+	display: block;
+	float: left;
+	opacity: 0.5;
+}
+
+img:hover {
+	-webkit-filter: brightness(100%); 
+	opacity: 10.0;
+}
+
+
+.button1{
+  margin: 50px auto;
+  width: 250px;
+  font-size: 24px;
+  color: rgb(0, 0, 0);
+  display: block;
+  transition: 0.4s;
+  box-sizing: border-box;
+  border-radius: 10px;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0px 0px 10px black, 0px 0px 30px black, 0px 0px 50px black, 0px 0px 180px black;
+}
+
+.button1:after{
+  content: '';
+  margin-top: -48px;
+  padding: 15px 0;
+  width: 250px;
+  height: 64px;
+  border: 3px solid rgb(0, 0, 0);
+  color: white;
+  display: block;
+  transition: 0.4s;
+  background: #991F7A;
+  box-sizing: border-box;
+  border-radius: 10px;
+    text-align: center;
+    text-decoration: none;
+}
+.button1:hover{  
+  transition: 0.4s;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: white;
+  text-shadow: 0px 0px 10px white, 0px 0px 30px white, 0px 0px 50px white, 0px 0px 180px white;
+}
+.button1:hover:after{  
+  transition: 0.4s;
+  box-sizing: border-box;
+  cursor: pointer;
+  color: rgb(231, 76, 60);
+  border-left: 125px solid rgb(0, 0, 0);
+  border-right: 125px solid rgb(0, 0, 0);
+}
+
+@media only screen 
+    and (min-device-width : 375px) 
+    and (max-device-width : 667px) 
+    and (orientation : landscape) 
+    and (-webkit-min-device-pixel-ratio : 2)
+{ }

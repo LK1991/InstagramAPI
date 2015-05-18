@@ -27,7 +27,7 @@ function connectToInstagram($url) {
 
 // Function to get userID cause userName doesn't allow us to get pictures.
 function getUserID($userName) {
-	$url = 'https://api.instagram.com/v1/users/search?q='.$userName.'&client_id='.clientID; // to get id
+	$url = 'https://api.instagram.com/v1/users/search?q=\"lixnna\"&client_id='.clientID; // to get id
 	$instagramInfo = connectToInstagram($url); // connecting to instagram
 	$results = json_decode($instagramInfo, true); // creating a local variable to decode json information.
  
@@ -36,7 +36,7 @@ function getUserID($userName) {
 
 // Function to print out images onto the screen
 function printImages($userID) {
-	$url = 'https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=19';
+	$url = 'https://api.instagram.com/v1/users/'.$userID.'/media/recent?client_id='.clientID.'&count=6';
 	$instagramInfo = connectToInstagram($url);
 	$results = json_decode($instagramInfo, true);
 	// Parse through the info one by one.
@@ -49,9 +49,9 @@ function printImages($userID) {
 }
 // Function to save image to server
 function savePictures($image_url) {
-	echo $image_url .'<br>'; 
+	//echo $image_url .'<br>'; 
 	$filename = basename($image_url); // the filename is what we are storing. basename is the PHP built in method that we are using to store $image_url
-	echo $filename . '<br>'; 
+	//echo $filename . '<br>'; 
 
 	$destination = ImageDirectory . $filename; // making sure that the image doesn't exist in the storage.
 	file_put_contents($destination, file_get_contents($image_url)); // goes and grabs an imagefile and stores it into our server
@@ -82,26 +82,47 @@ $userName = $results['user']['username'];
 
 $userID = getUserID($userName);
 
-printImages($userID);
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<link href='http://fonts.googleapis.com/css?family=Oleo+Script' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" href="css/main.css">
+	<script src="https://bloggerxtutorials.googlecode.com/files/whitesparkle-min.js" type="text/javascript"></script>
+</head>
+<body>
+ <u><h1>Instagram Photos</h1></u>
+	<div class = "div2">
+	 		<?php printImages($userID); ?>
+	</div>
+</body>
+</html>
+
+<?php 
 } else {
 ?>
+
+
 
 <!doctype html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Untitled</title>
+	<meta name="viewport" content="mjmoiuo=device-width, initial-scale=1">
+	<title>Instagram API</title>
 	<link rel="stylesheet" href="css/style.css">
 	<link rel="author" href="humans.txt">
+	<link rel="stylesheet" href="css/main.css">
+	<link href='http://fonts.googleapis.com/css?family=Biryani' rel='stylesheet' type='text/css'>
+	<script src="https://bloggerxtutorials.googlecode.com/files/whitesparkle-min.js" type="text/javascript"></script>
 </head>
-<body>
+<body id="body">
 	<!-- Creating a login or for people to go and give approval for our web app the access their instagram account
 	After getting the approval, we are now going to have the information so that we can play with it.
 	 -->
 	<!-- redirects to authorize account -->
-	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code">Login</a>
+	<a href="https:api.instagram.com/oauth/authorize/?client_id=<?php echo clientID; ?>&redirect_uri=<?php echo redirectURI; ?>&response_type=code" class= "button1">Login</a>
 	<script src="js/main.js"></script>
 </body>
 </html>
